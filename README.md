@@ -1,6 +1,6 @@
 # LLM for Jobs
 
-This repository host a series of use cases on the Large Language Model(LLM) for Job descriptions and skills.
+This repository hosts a series of topics on the Large Language Model(LLM) for Job descriptions and skills. It demonstrates how to fine-tune pretrained language models for the following NLP tasks:
 
 - Introduction to Huggingface Transformers
 - Job segmentation
@@ -10,4 +10,5 @@ This repository host a series of use cases on the Large Language Model(LLM) for 
 - Job recommendation
 - Title generation
 - Job description generation
+
 
