@@ -2,7 +2,7 @@
 
 This repository hosts a series of topics on the Large Language Model(LLM) for Job descriptions and skills. It demonstrates how to fine-tune pretrained language models for the following NLP tasks:
 
-- Introduction to Huggingface Transformers
+- Use pre-trained models
 - Job segmentation
 - Job classification
 - Skill NER
