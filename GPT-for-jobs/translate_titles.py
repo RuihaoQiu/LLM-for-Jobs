@@ -26,6 +26,7 @@ def make_input_content(titles: List[str]) -> str:
 
 async def fetch_response(titles: List[str]) -> str:
     content = make_input_content(titles)
+
     prompt = f"""You are a HR and language expert.
         You will be provided with a numerical list of job titles, and your task is to translate them into English.
         The output should be a numerical list of translated titles separated by newline."""
@@ -70,7 +71,17 @@ async def translate_titles(titles: List[str], batch_size: int=10) -> List[str]:
 
 
 if __name__ == "__main__":
-    df = pd.read_parquet("data/inputs/LT-1.parquet")
-    all_titles = df["job_title"].to_list()[:200]
-    translated_titles = asyncio.run(translate_titles(all_titles))
+    titles_lt = [
+        "Vyriausiasis (-ioji) teisininkas (-ė",
+        "Vyriausiasis teisininkas (-ė) Licencijų administravimo skyriuje",
+        "VYRESNIOJI (-YSIS) TEISININKĖ (-AS) (KORPORATYVINĖ IR ĮMONIŲ TEISĖ",
+        "Teisininkas (-ė",
+        "Inovacijų ekspertas (-ė",
+        "Informacinių sistemų saugos pareigūnas (-ė) (įgaliotinis (-ė)) 0,5 et. darbo krūviu",
+        "Strateginio planavimo skyriaus finansų planuotojo (-jos",
+        "Komunikacijos skyriaus patarėjo(-jos",
+        "Teisininkas (-ė",
+        "TEISININKĖ (-AS) (GINČŲ TEISĖ"
+    ]
+    translated_titles = asyncio.run(translate_titles(titles_lt, batch_size=2))
     print(translated_titles)

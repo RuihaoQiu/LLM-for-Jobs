@@ -1,10 +1,6 @@
 This folder contains the code to use openai api for different tasks on job descriptions processing:
 - Translation
-- Job segmentation
-- Job classification
-- Skill Extraction
-- Salary extraction
-- Job recommendation
+(will keep adding more tasks)
 
 ## pre-requisites
 - openai account
@@ -17,8 +13,8 @@ This folder contains the code to use openai api for different tasks on job descr
 export OPENAI_API_KEY=your_api_key
 """
 
-- Run the code with cli arguments, e.g. to translate from english to french:
+- Run the script
 ```bash
-python translate.py --from_lang en --to_lang fr --input input.txt --output output.txt
+python translate.py
 ```
 
