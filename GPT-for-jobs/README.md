@@ -1,5 +1,6 @@
 This folder contains the code to use openai api for different tasks on job descriptions processing:
 - Translation
+- Segment Job: divide a job description into different segments
 (will keep adding more tasks)
 
 ## pre-requisites
@@ -18,3 +19,4 @@ export OPENAI_API_KEY=your_api_key
 python translate.py
 ```
 
+See examples in `examples.ipynb` notebook.
