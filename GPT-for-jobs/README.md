@@ -1,5 +1,5 @@
 This folder contains the code to use openai api for different tasks on job descriptions processing:
-- Translation
+- Translation: Translate titles and descriptions from/to different languages
 - Segment Job: divide a job description into different segments
 (will keep adding more tasks)
 
