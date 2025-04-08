@@ -7,15 +7,18 @@ import instructor
 
 aclient = instructor.patch(AsyncOpenAI())
 
+
 class Labels(Enum):
     COMPANY = "company"
     TASKS = "tasks"
     REQUIREMENTS = "requirements"
     BENEFITS = "benefits"
 
+
 class ClassifiedJobParagraph(BaseModel):
     label: Labels
     paragraph: str
+
 
 def make_prompt(language):
     """
@@ -37,6 +40,7 @@ def make_prompt(language):
     )
     return prompt
 
+
 async def classify_job_description(
     job_description: str, language: str
 ) -> List[ClassifiedJobParagraph]:
@@ -51,6 +55,6 @@ async def classify_job_description(
             {"role": "user", "content": job_description},
         ],
         max_retries=5,
-        response_format=List[ClassifiedJobParagraph]
+        response_format=List[ClassifiedJobParagraph],
     )
     return response

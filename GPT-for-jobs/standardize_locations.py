@@ -7,10 +7,12 @@ import instructor
 
 aclient = instructor.patch(AsyncOpenAI())
 
+
 class StandardLocation(BaseModel):
     city: str
     county: str
     country: str
+
 
 def make_prompt():
     """
@@ -24,9 +26,8 @@ def make_prompt():
     )
     return prompt
 
-async def standardize_location(
-    raw_location: str
-) -> List[StandardLocation]:
+
+async def standardize_location(raw_location: str) -> List[StandardLocation]:
     prompt = make_prompt()
     response = await aclient.chat.completions.create(
         model="gpt-4o-mini",
@@ -38,6 +39,6 @@ async def standardize_location(
             {"role": "user", "content": raw_location},
         ],
         max_retries=5,
-        response_format=List[StandardLocation]
+        response_format=List[StandardLocation],
     )
     return response
