@@ -10,7 +10,7 @@ aclient = instructor.patch(AsyncOpenAI())
 
 class StandardLocation(BaseModel):
     city: str
-    county: str
+    region: str
     country: str
 
 
@@ -21,8 +21,8 @@ def make_prompt():
     prompt = (
         "You are a geographic expert. "
         "You will be provided a raw text that might include location information. "
-        "And you should give back a list of standard locations including city, county and country. "
-        "If there is no city or county, keep it as None. "
+        "And you should give back a standard locations including city, region and country. "
+        "If there is no city or region, keep it as None. "
     )
     return prompt
 
@@ -39,6 +39,6 @@ async def standardize_location(raw_location: str) -> List[StandardLocation]:
             {"role": "user", "content": raw_location},
         ],
         max_retries=5,
-        response_format=List[StandardLocation],
+        response_format=StandardLocation,
     )
     return response
