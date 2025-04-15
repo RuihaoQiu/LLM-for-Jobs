@@ -28,7 +28,7 @@ def make_prompt():
 
 async def standardize_location(raw_location: str) -> StandardLocation:
     prompt = make_prompt()
-    response = await aclient.chat.completions.create(
+    response = await aclient.beta.chat.completions.parse(
         model="gpt-4o-mini",
         messages=[
             {
@@ -37,13 +37,19 @@ async def standardize_location(raw_location: str) -> StandardLocation:
             },
             {"role": "user", "content": raw_location},
         ],
-        max_retries=5,
         response_format=StandardLocation,
     )
-    return response
+    return response.choices[0].message.parsed
+
+
+async def standardize_locations(locations: list[str]) -> list[StandardLocation]:
+    tasks = [standardize_location(location) for location in locations]
+    standardized_locations = await asyncio.gather(*tasks)
+    return standardized_locations
+
 
 if __name__ == "__main__":
     # Example usage
-    raw_location = "San Francisco, CA, USA"
+    raw_location = "Beijing, Beijing, CN"
     standardized_location = asyncio.run(standardize_location(raw_location))
     print(standardized_location)
