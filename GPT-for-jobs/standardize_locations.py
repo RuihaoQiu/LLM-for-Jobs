@@ -1,9 +1,8 @@
-from typing import List
 from pydantic import BaseModel
-from enum import Enum
 
 from openai import AsyncOpenAI
 import instructor
+import asyncio
 
 aclient = instructor.patch(AsyncOpenAI())
 
@@ -22,12 +21,12 @@ def make_prompt():
         "You are a geographic expert. "
         "You will be provided a raw text that might include location information. "
         "And you should give back a standard locations including city, region and country. "
-        "If there is no city or region, keep it as None. "
+        "If there is no city, region or country, keep it as None. "
     )
     return prompt
 
 
-async def standardize_location(raw_location: str) -> List[StandardLocation]:
+async def standardize_location(raw_location: str) -> StandardLocation:
     prompt = make_prompt()
     response = await aclient.chat.completions.create(
         model="gpt-4o-mini",
@@ -42,3 +41,9 @@ async def standardize_location(raw_location: str) -> List[StandardLocation]:
         response_format=StandardLocation,
     )
     return response
+
+if __name__ == "__main__":
+    # Example usage
+    raw_location = "San Francisco, CA, USA"
+    standardized_location = asyncio.run(standardize_location(raw_location))
+    print(standardized_location)
