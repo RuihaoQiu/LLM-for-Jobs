@@ -5,6 +5,7 @@ from enum import Enum
 from openai import AsyncOpenAI
 import instructor
 
+model = "gpt-4o-mini"
 aclient = instructor.patch(AsyncOpenAI())
 
 
@@ -45,8 +46,8 @@ async def classify_job_description(
     job_description: str, language: str
 ) -> List[ClassifiedJobParagraph]:
     prompt = make_prompt(language)
-    response = await aclient.chat.completions.create(
-        model="gpt-4o-mini",
+    response = await aclient.beta.chat.completions.parse(
+        model=model,
         messages=[
             {
                 "role": "system",
@@ -54,7 +55,6 @@ async def classify_job_description(
             },
             {"role": "user", "content": job_description},
         ],
-        max_retries=5,
         response_format=List[ClassifiedJobParagraph],
     )
     return response

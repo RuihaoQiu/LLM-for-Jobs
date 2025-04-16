@@ -1,18 +1,12 @@
 """
 This script generates job titles using GPT-3. It uses the OpenAI API to generate job titles based on a list of job descriptions.
 """
-
-import re
 import instructor
-from tqdm.asyncio import tqdm
 from typing import List
 from openai import AsyncOpenAI
-import pandas as pd
-import asyncio
 
 model = "gpt-4o-mini"
 aclient = instructor.patch(AsyncOpenAI())
-
 
 async def generate_title(text: str) -> str:
     prompt = f"""You are a HR and language expert.

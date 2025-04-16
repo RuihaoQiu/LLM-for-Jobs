@@ -3,7 +3,6 @@ import instructor
 from tqdm.asyncio import tqdm
 from typing import List
 from openai import AsyncOpenAI
-import pandas as pd
 import asyncio
 from langcodes import Language
 

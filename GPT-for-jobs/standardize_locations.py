@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-
 from openai import AsyncOpenAI
 import instructor
 import asyncio
 
+model = "gpt-4o-mini"
 aclient = instructor.patch(AsyncOpenAI())
 
 
@@ -29,7 +29,7 @@ def make_prompt():
 async def standardize_location(raw_location: str) -> StandardLocation:
     prompt = make_prompt()
     response = await aclient.beta.chat.completions.parse(
-        model="gpt-4o-mini",
+        model=model,
         messages=[
             {
                 "role": "system",
@@ -49,7 +49,6 @@ async def standardize_locations(locations: list[str]) -> list[StandardLocation]:
 
 
 if __name__ == "__main__":
-    # Example usage
     raw_location = "Beijing, Beijing, CN"
-    standardized_location = asyncio.run(standardize_location(raw_location))
+    standardized_location = asyncio.run(standardize_location(raw_location=raw_location))
     print(standardized_location)
