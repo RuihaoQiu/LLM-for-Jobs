@@ -1,6 +1,3 @@
-"""
-This script generates job titles using GPT-3. It uses the OpenAI API to generate job titles based on a list of job descriptions.
-"""
 import instructor
 from typing import List
 from openai import AsyncOpenAI
