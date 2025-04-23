@@ -8,5 +8,5 @@ It includes mainly two parts:
   - **Sentence Classification**: Label sentences from job descriptions into different categories
   - **standardization**: Standardize job titles and descriptions
   - **Standard Location**: Standardize location names into city, region and country level
-
+  - **Skill Extraction**: Extract skills from job descriptions
 - **Fine-tuning**: How to fine-tune the model for different tasks
