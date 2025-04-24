@@ -1,5 +1,3 @@
-from typing import List
-
 from openai import AsyncOpenAI
 import instructor
 import asyncio
@@ -8,16 +6,13 @@ model = "gpt-4o-mini"
 aclient = instructor.patch(AsyncOpenAI())
 
 
-
 prompt = (
-        "You are an expert in skill taxonomy. You will provide you a job description "
-        "and you extract a list of skills from it. The skills should be precise and less than 3 words. "
-    )
+    "You are an expert in skill taxonomy. You will provide you a job description "
+    "and you extract a list of skills from it. The skills should be precise and less than 3 words. "
+)
 
 
-async def extract_skills(
-    job_description: str
-) -> str:
+async def extract_skills(job_description: str) -> str:
     response = await aclient.chat.completions.create(
         model=model,
         messages=[
@@ -25,7 +20,7 @@ async def extract_skills(
                 "role": "system",
                 "content": prompt,
             },
-            {"role": "user", "content": job_description}
+            {"role": "user", "content": job_description},
         ],
     )
     return response.choices[0].message.content
