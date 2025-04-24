@@ -22,9 +22,6 @@ class ClassifiedJobParagraph(BaseModel):
 
 
 def make_prompt(language):
-    """
-    here is just an example, make you own prompt and test it.
-    """
     prompt = (
         "You are a segmenter for job descriptions. I will provide you a job description "
         "and you should give back a list of sections. The output should be in utf-8. "

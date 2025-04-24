@@ -27,6 +27,6 @@ async def extract_skills(job_description: str) -> str:
 
 
 if __name__ == "__main__":
-    job_description = "We are looking for a software engineer with experience in Python and machine learning."
-    skills = asyncio.run(extract_skills(job_description=job_description))
+    description = "We are looking for a software engineer with experience in Python and machine learning."
+    skills = asyncio.run(extract_skills(job_description=description))
     print(skills)

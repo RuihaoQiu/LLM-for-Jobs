@@ -14,9 +14,6 @@ class StandardLocation(BaseModel):
 
 
 def make_prompt():
-    """
-    here is just an example, make you own prompt and test it.
-    """
     prompt = (
         "You are a geographic expert. "
         "You will be provided a raw text that might include location information. "
