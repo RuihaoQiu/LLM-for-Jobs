@@ -46,6 +46,6 @@ async def standardize_locations(locations: list[str]) -> list[StandardLocation]:
 
 
 if __name__ == "__main__":
-    raw_location = "Beijing, Beijing, CN"
-    standardized_location = asyncio.run(standardize_location(raw_location=raw_location))
+    location = "Beijing, Beijing, CN"
+    standardized_location = asyncio.run(standardize_location(raw_location=location))
     print(standardized_location)
