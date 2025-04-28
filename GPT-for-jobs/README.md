@@ -1,8 +1,9 @@
 This folder contains the code to use openai api for different tasks on job descriptions processing:
-- Translation: Translate titles and descriptions from/to different languages
-- Segment Job: divide a job description into different segments
-- Standardize Job: standardize job titles and descriptions
-- Standardize Location: standardize location names into city, region and country level
+- Translations: Translate titles and descriptions from/to different languages
+- classify Sentences: Classify sentences from job descriptions into different categories
+- Standardize Job Titles: Standardize job titles and descriptions
+- Standardize Locations: Standardize location names into city, region and country level
+- Extract Skills: Extract skills from job descriptions
 
 ## pre-requisites
 - openai account
