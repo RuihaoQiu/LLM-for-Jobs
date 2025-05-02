@@ -14,9 +14,6 @@ class StandardLocation(BaseModel):
 
 
 def make_prompt():
-    """
-    here is just an example, make you own prompt and test it.
-    """
     prompt = (
         "You are a geographic expert. "
         "You will be provided a raw text that might include location information. "
@@ -49,6 +46,6 @@ async def standardize_locations(locations: list[str]) -> list[StandardLocation]:
 
 
 if __name__ == "__main__":
-    raw_location = "Beijing, Beijing, CN"
-    standardized_location = asyncio.run(standardize_location(raw_location=raw_location))
+    location = "Beijing, Beijing, CN"
+    standardized_location = asyncio.run(standardize_location(raw_location=location))
     print(standardized_location)

@@ -12,7 +12,7 @@ from langcodes import Language
 """
 
 model = "gpt-4o-mini"
-numerical_regex = re.compile(r"^\d+[\.]?\s*")
+numerical_regex = re.compile(r"^\d+[.]?\s*")
 aclient = instructor.patch(AsyncOpenAI())
 
 def make_batches(titles: List[str], batch_size: int) -> List[List[str]]:
@@ -50,7 +50,7 @@ async def fetch_response_to_en(titles: List[str]) -> str:
         return output
     except Exception as e:
         print(f"Error processing input: {str(e)}")
-        return None
+        return ""
 
 async def fetch_response_from_en(titles: List[str], to_lang_code: str) -> str:
     content = make_input_content(titles)
@@ -78,7 +78,7 @@ async def fetch_response_from_en(titles: List[str], to_lang_code: str) -> str:
         return output
     except Exception as e:
         print(f"Error processing input: {str(e)}")
-        return None
+        return ""
 
 def remove_numerical(title: str) -> str:
     return numerical_regex.sub("", title).strip()

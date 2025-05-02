@@ -5,6 +5,7 @@ from openai import AsyncOpenAI
 model = "gpt-4o-mini"
 aclient = instructor.patch(AsyncOpenAI())
 
+
 async def generate_title(text: str) -> str:
     prompt = f"""You are a HR and language expert.
         You will be provided with a job description, and your task is to create a proper title for it.
@@ -13,14 +14,9 @@ async def generate_title(text: str) -> str:
         {"role": "system", "content": prompt},
         {"role": "user", "content": text},
     ]
-
-    try:
-        response = await aclient.chat.completions.create(model=model, messages=messages)
-        output = response.choices[0].message.content
-        return output
-    except Exception as e:
-        print(f"Error processing input: {str(e)}")
-        return None
+    response = await aclient.chat.completions.create(model=model, messages=messages)
+    output = response.choices[0].message.content
+    return output
 
 
 async def select_title(text: str, titles: List[str]) -> str:
@@ -31,11 +27,6 @@ async def select_title(text: str, titles: List[str]) -> str:
         {"role": "system", "content": prompt},
         {"role": "user", "content": text},
     ]
-
-    try:
-        response = await aclient.chat.completions.create(model=model, messages=messages)
-        output = response.choices[0].message.content
-        return output
-    except Exception as e:
-        print(f"Error processing input: {str(e)}")
-        return None
+    response = await aclient.chat.completions.create(model=model, messages=messages)
+    output = response.choices[0].message.content
+    return output
