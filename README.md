@@ -8,6 +8,9 @@ It includes mainly two parts:
   - **Segmentation**: Divide a job description into different segments
   - **standardization**: Standardize job titles and descriptions
   - **Standard Location**: Standardize location names into city region and country level
+  - **Skill Extraction**: Extract skills from job descriptions
+  - **Skill identification**: Identify the skills from the job description
+
 - **Fine-tuning**: How to fine-tune the model for different tasks
 
 
