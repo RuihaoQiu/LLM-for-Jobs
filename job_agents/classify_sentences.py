@@ -21,12 +21,10 @@ class ClassifiedJobParagraph(BaseModel):
     paragraph: str
 
 
-def make_prompt(language):
-    prompt = (
+prompt = (
         "You are a segmenter for job descriptions. I will provide you a job description "
         "and you should give back a list of sections. The output should be in utf-8. "
-        f"Keep segmented paragraphs in the {language}. Some parts of the description might "
-        "be omitted if they do not fit into any category, and there might be cases where "
+        "Some parts of the description might be omitted if they do not fit into any category, and there might be cases where "
         "no info on a category can be found. Try to avoid having the same sentences in "
         'different paragraphs. The "company" category is about company description and '
         "what the company does in general; tasks are about what an employee's "
@@ -35,14 +33,9 @@ def make_prompt(language):
         "perks and rewards for working in the company. A job description must "
         "contain no more than one paragraph per category - if new info is found, "
         "add it to the existing paragraph where it fits best."
-    )
-    return prompt
+)
 
-
-async def classify_job_description(
-    job_description: str, language: str
-) -> List[ClassifiedJobParagraph]:
-    prompt = make_prompt(language)
+async def classify_job_description(job_description: str) -> List[ClassifiedJobParagraph]:
     response = await aclient.beta.chat.completions.parse(
         model=model,
         messages=[
