@@ -2,6 +2,7 @@ from typing import List
 from pydantic import BaseModel
 from enum import Enum
 
+import asyncio
 from openai import AsyncOpenAI
 import instructor
 
@@ -14,28 +15,26 @@ class Labels(Enum):
     TASKS = "tasks"
     REQUIREMENTS = "requirements"
     BENEFITS = "benefits"
+    OTHERS = "others"
 
 
-class ClassifiedJobParagraph(BaseModel):
+class ClassifiedSentence(BaseModel):
     label: Labels
-    paragraph: str
+    sentence: str
 
 
 prompt = (
-        "You are a segmenter for job descriptions. I will provide you a job description "
-        "and you should give back a list of sections. The output should be in utf-8. "
-        "Some parts of the description might be omitted if they do not fit into any category, and there might be cases where "
-        "no info on a category can be found. Try to avoid having the same sentences in "
-        'different paragraphs. The "company" category is about company description and '
-        "what the company does in general; tasks are about what an employee's "
-        "responsibilities are and what they have to do; requirements are about what "
-        "qualifications a potential employee must have; benefits are all types of "
-        "perks and rewards for working in the company. A job description must "
-        "contain no more than one paragraph per category - if new info is found, "
-        "add it to the existing paragraph where it fits best."
+        "You are a HR expert for job posts. You will be provided a sentence or paragraph from ajob description "
+        "and you should give back a label. The label should be one of the following: "
+        f"{', '.join([label.value for label in Labels])}. "
+        'The "company" category is about company description, what the company does in general; '
+        "tasks are about what an employee's daily tasks are and what they have to do; "
+        "requirements are about what qualifications a potential employee must have; "
+        "benefits are all types of perks and rewards for working in the company; "
+        "if the sentence or paragraph does not fit any of these categories, label it as 'others'. "
 )
 
-async def classify_job_description(job_description: str) -> List[ClassifiedJobParagraph]:
+async def classify_sentence(sentence: str) -> ClassifiedSentence:
     response = await aclient.beta.chat.completions.parse(
         model=model,
         messages=[
@@ -43,8 +42,20 @@ async def classify_job_description(job_description: str) -> List[ClassifiedJobPa
                 "role": "system",
                 "content": prompt,
             },
-            {"role": "user", "content": job_description},
+            {"role": "user", "content": sentence},
         ],
-        response_format=List[ClassifiedJobParagraph],
+        response_format=ClassifiedSentence,
     )
-    return response
+    return response.choices[0].message.parsed
+
+if __name__ == "__main__":
+    sentences = [
+        "We are looking for a software engineer with experience in Python and machine learning. ",
+        "The company is a leading tech firm specializing in AI solutions. ",
+        "The ideal candidate should have a degree in Computer Science and at least 3 years of experience. ",
+        "We offer competitive salaries and flexible working hours.",
+        "Contact us for more information.",
+    ]
+    for s in sentences:
+        classified_sentence = asyncio.run(classify_sentence(sentence=s))
+        print(classified_sentence)
