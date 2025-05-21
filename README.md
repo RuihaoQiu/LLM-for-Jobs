@@ -2,7 +2,7 @@
 
 This repository hosts a series of topics on the Large Language Model(LLM) for Job descriptions and skills. The first part of the repository is focused on the data preparation for the fine-tuning tasks using gpt. The second part is focused on the fine-tuning of the model for different tasks.
 
-It includes mainly two parts:
+It includes mainly the following parts:
 
 - job_agents: The job agents are the agents that can be used to perform different tasks on job descriptions and skills. The job agents are based on the openai gpt-3.5-turbo model. The job agents are used to perform different tasks on job descriptions and skills. The tasks include:
   - **Translation**: Translate job titles and descriptions from one language to another
