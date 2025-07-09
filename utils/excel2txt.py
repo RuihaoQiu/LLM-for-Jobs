@@ -7,7 +7,7 @@ data_path_txt = Path(__file__).parent / ".." / "data/onet_jobs.txt"
 def excel2txt():
     df = pd.read_excel(data_path_excel)
     with open(data_path_txt, 'w', encoding='utf-8') as f:
-        for idx, row in df.iterrows():
+        for _, row in df.iterrows():
             f.write(f"Title: {row['Title']}\n")
             f.write(f"Description: {row['Description']}\n\n")
 
