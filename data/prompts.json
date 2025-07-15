@@ -1,0 +1,5 @@
+{
+    "job-skill-assistant" : "You are an expert of job and skill catelogue.",
+    "recommend-titles" : "Recommend most relevant titles from ONet. Here is my input text: ",
+    "recommend-skills" : "Recommend most relevant skills from ONet. Here is my input text: "
+}

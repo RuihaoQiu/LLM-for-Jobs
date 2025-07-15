@@ -1,15 +1,16 @@
 import asyncio
 from agents import Agent, Runner
+from utils.load_data import load_prompts
 
+prompts = load_prompts()
+print(prompts)
 
-async def main():
-    agent = Agent(name="Assistant", instructions="You are an expert of job and skill catelogue.")
+agent = Agent(name="Assistant", instructions="You are an expert of job and skill catelogue.")
 
-    result = await Runner.run(agent, "Recommend 5 most relevant titles from ONet.")
+async def recommend_titles(input_title: str):
+    result = await Runner.run(agent, f"Recommend 5 most relevant titles from ONet.  Here is my input title is {input_title}")
     print(result.final_output)
-    # Code within the code,
-    # Functions calling themselves,
-    # Infinite loop's dance.
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    title = "machine learning engineer"
+    # asyncio.run(recommend_titles(title))
