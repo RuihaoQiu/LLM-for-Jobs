@@ -35,3 +35,26 @@ python translate.py
 ```
 
 See examples in `examples.ipynb` notebook.
+
+## Evaluation Data Layout
+- Gold folder: `Evaluation/data/gold` (e.g., `salary_gold.csv`)
+- Predictions folder: `Evaluation/data/pred` (e.g., `salary_pred.sample.csv`)
+- Required columns: `min_salary`, `max_salary`, `currency`, `period` (values normalized as strings; empty -> defaults to -1 or N/A)
+
+## Evaluation CLI Examples
+
+- Run salary evaluation from repo root
+```bash
+python Evaluation/cli.py --data data/gold/salary_gold.csv --task salary
+```
+
+- Run from `Evaluation/` directory
+```bash
+cd Evaluation
+python cli.py --data ../data/gold/salary_gold.csv --task salary
+```
+
+- Using helper script
+```bash
+bash scripts/run_salary_eval.sh
+```
