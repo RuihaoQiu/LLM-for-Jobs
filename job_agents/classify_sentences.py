@@ -3,11 +3,7 @@ from pydantic import BaseModel
 from enum import Enum
 
 import asyncio
-from openai import AsyncOpenAI
-import instructor
-
-model = "gpt-4o-mini"
-aclient = instructor.patch(AsyncOpenAI())
+from .client import aclient, DEFAULT_MODEL, load_prompt
 
 
 class Labels(Enum):
@@ -23,20 +19,11 @@ class ClassifiedSentence(BaseModel):
     sentence: str
 
 
-prompt = (
-        "You are a HR expert for job posts. You will be provided a sentence or paragraph from ajob description "
-        "and you should give back a label. The label should be one of the following: "
-        f"{', '.join([label.value for label in Labels])}. "
-        'The "company" category is about company description, what the company does in general; '
-        "tasks are about what an employee's daily tasks are and what they have to do; "
-        "requirements are about what qualifications a potential employee must have; "
-        "benefits are all types of perks and rewards for working in the company; "
-        "if the sentence or paragraph does not fit any of these categories, label it as 'others'. "
-)
+prompt = load_prompt("classify_sentences")
 
 async def classify_sentence(sentence: str) -> ClassifiedSentence:
     response = await aclient.beta.chat.completions.parse(
-        model=model,
+        model=DEFAULT_MODEL,
         messages=[
             {
                 "role": "system",

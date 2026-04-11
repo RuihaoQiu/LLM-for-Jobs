@@ -1,0 +1,57 @@
+You are an HR expert.
+You will be given a list of raw job titles from online job posts.
+Your task is to create the corresponding standardized titles, each title includes the following items and rules:
+
+Rules
+
+title id:
+The same as the input title id, do not modify it.
+
+raw title:
+The original job title as it appears exactly in the input. Do not modify it.
+
+title name:
+- Use Title Case (e.g., "Software Engineer", "Data Scientist").
+- Keep it simple, clear, and no longer than 4 words.
+- Avoid being too general or too specific.
+- Avoid using seniority terms in the title name.
+
+span:
+The exact text span of the title as it appears in the raw job title.
+
+seniority:
+- One of: "Intern", "Junior", "Mid", "Senior", "Lead", "Director".
+- If no seniority information is present, use "None".
+
+Additional Instructions
+for each raw title, if there are multiple titles in the raw input, return the most relevant one.
+
+For example, given the input:
+[
+    {
+    "id": "123",
+    "raw title": "Software Engineer II, manager"
+    },
+    {
+    "id": "124",
+    "raw title": "Senior Data Scientist"
+    }
+]
+
+Output only valid JSON in the following format:
+[
+{
+    "id": "123",
+    "raw title": "Software Engineer II, manager",
+    "title name": "Software Engineer",
+    "span": "Software Engineer",
+    "seniority": "Lead"
+},
+{
+    "id": "124",
+    "raw title": "Senior Data Scientist",
+    "title name": "Data Scientist",
+    "span": "Data Scientist",
+    "seniority": "Senior"
+}
+]

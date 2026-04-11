@@ -1,60 +1,80 @@
 # LLM for Jobs
 
-This repository hosts a series of topics on the Large Language Model(LLM) for Job descriptions and skills. The first part of the repository is focused on the data preparation for the fine-tuning tasks using gpt. The second part is focused on the fine-tuning of the model for different tasks.
+A collection of LLM-powered agents for processing job descriptions and skills, built on OpenAI's API.
 
-It includes mainly the following parts:
+## Project Structure
 
-- job_agents: The job agents are the agents that can be used to perform different tasks on job descriptions and skills. The job agents are based on the openai gpt-3.5-turbo model. The job agents are used to perform different tasks on job descriptions and skills. The tasks include:
-  - **Translation**: Translate job titles and descriptions from one language to another
-  - **Segmentation**: Divide a job description into different segments
-  - **Standardization**: Standardize job titles and descriptions
-  - **Standard Location**: Standardize location names into city region and country level
-  - **Skill Extraction**: Extract skills from job descriptions
-  - **Skill identification**: Identify the skills from the job description
+```
+LLM-for-Jobs/
+├── job_agents/        # LLM agents for job-related tasks
+│   ├── client.py      # Shared OpenAI client, prompt loader, batch utility
+│   ├── classify_sentences.py
+│   ├── extract_skills.py
+│   ├── generate_titles.py
+│   ├── identify_skills.py
+│   ├── skill_descriptions.py
+│   ├── standardize_locations.py
+│   └── translate_titles.py
+├── prompts/           # Prompt templates (one file per agent)
+├── evaluation/        # Evaluation framework
+│   ├── cli.py
+│   ├── tasks.py
+│   ├── metrics.py
+│   ├── dataset.py
+│   └── runner.py
+├── utils/
+│   └── load_data.py
+└── config.py
+```
 
-- src: The source code for the data preparation and fine-tuning tasks
-- data: The data for the fine-tuning tasks
-- notebooks: The notebooks for the data preparation and fine-tuning tasks
+## Agents
 
-The `GPT-for-jobs` contains the code to use openai api for different tasks on data preparation for different tasks.
+| Agent | Description |
+|---|---|
+| `classify_sentences` | Label job description sentences: company / tasks / requirements / benefits / others |
+| `extract_skills` | Extract normalized skills with text spans from job descriptions |
+| `generate_titles` | Standardize raw job titles with seniority detection |
+| `identify_skills` | Verify whether a skill is present in a given context |
+| `skill_descriptions` | Generate 2–3 sentence descriptions for a list of skills |
+| `standardize_locations` | Parse raw location text into city / region / country |
+| `translate_titles` | Translate job titles to/from English |
 
-## pre-requisites
-- openai account
-- openai api key
-- python 3.10 or higher
+## Setup
+
+**Requirements**: Python 3.10+, OpenAI API key
+
+```bash
+pip install openai instructor pydantic pandas scikit-learn tqdm langcodes
+```
+
+```bash
+export OPENAI_API_KEY=your_api_key
+```
 
 ## Usage
-- Set the openai api key in the environment variable
-"""
-export OPENAI_API_KEY=your_api_key
-"""
 
-- Run the script
+Each agent can be run directly:
+
 ```bash
-python translate.py
+python -m job_agents.extract_skills
+python -m job_agents.generate_titles
 ```
 
-See examples in `examples.ipynb` notebook.
+Or imported as a module:
 
-## Evaluation Data Layout
-- Gold folder: `Evaluation/data/gold` (e.g., `salary_gold.csv`)
-- Predictions folder: `Evaluation/data/pred` (e.g., `salary_pred.sample.csv`)
-- Required columns: `min_salary`, `max_salary`, `currency`, `period` (values normalized as strings; empty -> defaults to -1 or N/A)
+```python
+import asyncio
+from job_agents.extract_skills import extract_skills
 
-## Evaluation CLI Examples
-
-- Run salary evaluation from repo root
-```bash
-python Evaluation/cli.py --data data/gold/salary_gold.csv --task salary
+skills = asyncio.run(extract_skills(job_description="..."))
 ```
 
-- Run from `Evaluation/` directory
+## Evaluation
+
+Gold data goes in `data/gold/` (e.g. `salary_gold.csv`). Required columns for salary: `min_salary`, `max_salary`, `currency`, `period`.
+
 ```bash
-cd Evaluation
-python cli.py --data ../data/gold/salary_gold.csv --task salary
+python -m evaluation.cli --data data/gold/salary_gold.csv --task salary
 ```
 
-- Using helper script
-```bash
-bash scripts/run_salary_eval.sh
-```
+Supported tasks: `salary`, `skills`, `title`.

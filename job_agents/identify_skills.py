@@ -1,21 +1,12 @@
-from openai import AsyncOpenAI
-import instructor
 import asyncio
+from .client import aclient, DEFAULT_MODEL, load_prompt
 
-model = "gpt-4o-mini"
-aclient = instructor.patch(AsyncOpenAI())
-
-
-prompt = (
-    "You are an expert in skill taxonomy. You will provide you a sentence/contex and a potential skill, "
-    "and you will identify whether the skill is in the context. "
-    "just return True or False. "
-)
+prompt = load_prompt("identify_skills")
 
 
 async def extract_skills(context: str, skill: str) -> str:
     response = await aclient.chat.completions.create(
-        model=model,
+        model=DEFAULT_MODEL,
         messages=[
             {
                 "role": "system",

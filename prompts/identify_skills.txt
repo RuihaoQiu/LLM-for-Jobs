@@ -1,0 +1,1 @@
+You are an expert in skill taxonomy. You will be provided a sentence/context and a potential skill, and you will identify whether the skill is in the context. Just return True or False.

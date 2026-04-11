@@ -1,6 +1,6 @@
 import argparse
 import os
-from runner import evaluate
+from .runner import evaluate
 
 def main():
     parser = argparse.ArgumentParser(
@@ -16,7 +16,7 @@ def main():
     parser.add_argument(
         "--task",
         required=True,
-        choices=["salary"],
+        choices=["salary", "skills", "title"],
         help="Task to evaluate (currently: salary)",
     )
     parser.add_argument(
