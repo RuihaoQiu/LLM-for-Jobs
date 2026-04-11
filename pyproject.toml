@@ -1,0 +1,14 @@
+[project]
+name = "llm-for-jobs"
+version = "0.1.0"
+description = "LLM-powered agents for processing job descriptions and skills"
+requires-python = ">=3.10"
+dependencies = [
+    "openai",
+    "instructor",
+    "pydantic",
+    "pandas",
+    "scikit-learn",
+    "tqdm",
+    "langcodes",
+]

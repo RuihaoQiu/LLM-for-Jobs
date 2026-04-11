@@ -44,10 +44,7 @@ LLM-for-Jobs/
 **Requirements**: Python 3.10+, OpenAI API key
 
 ```bash
-pip install openai instructor pydantic pandas scikit-learn tqdm langcodes
-```
-
-```bash
+uv sync
 export OPENAI_API_KEY=your_api_key
 ```
 
